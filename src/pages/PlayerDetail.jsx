@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getPlayerDetail } from "../api/playerApi.js";
 
+const API_BASE_URL = "http://localhost:8080";
+
 const PlayerDetail = () => {
   const { id } = useParams();
 
@@ -35,7 +37,7 @@ const PlayerDetail = () => {
 
         <div className="flex justify-center mb-6">
           <img
-            src={`https://picsum.photos/192/192?random=${player.id}`}
+            src={`${API_BASE_URL}${player.imagePath}`}
             alt={`${player.name} 이미지`}
             className="w-32 h-32 object-cover rounded-2xl shadow-xl border-4 border-indigo-100 transform hover:scale-105 transition duration-300"
           />
@@ -69,7 +71,7 @@ const PlayerDetail = () => {
               {"\n"}
               생년월일: {player.birth}
               {"\n"}
-              키/몸무게: {player.physical}
+              신장/체중: {player.physical}
             </p>
           </div>
         </div>

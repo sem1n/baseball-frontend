@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 
+const API_BASE_URL = "http://localhost:8080";
+
 export default function PlayerCard({ player }) {
   return (
     <Link
       to={`/player/${player.id}`}
-      className="grid grid-cols-1 flex p-3 rounded-x1 hover:bg-gray-200 transition duration-150 shadow-sm hover:shadow-md bg-white w-full"
+      className="flex p-3 rounded-xl hover:bg-gray-200 transition duration-150 shadow-sm hover:shadow-md bg-white w-full"
     >
       <div className="flex-shrink-0 mr-4">
         <img
-          src={`https://picsum.photos/100/100?random=${player.id}`}
+          src={`${API_BASE_URL}${player.imagePath}`}
           alt={`${player.name} 이미지`}
           className="w-16 h-16 object-cover rounded-lg shadow-md"
         />
