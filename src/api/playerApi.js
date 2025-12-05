@@ -9,7 +9,7 @@ export const getPlayerList = async () => {
   return res.data;
 };
 
-export const getSongDetail = async (id) => {
+export const getPlayerDetail = async (id) => {
   const res = await api.get(`/${id}`);
   return res.data;
 };

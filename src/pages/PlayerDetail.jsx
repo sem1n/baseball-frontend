@@ -1,23 +1,32 @@
 import { useParams, Link } from "react-router-dom";
-
-// TODO: 테스트 Only. 이후 백엔드 연동 시 수정
-const player = {
-  id: "6932373783ff0e82da502081",
-  team: "삼성 라이온즈",
-  name: "오승환",
-  number: 21,
-  position: "투수",
-  birth: "1982.07.15",
-  physical: "179cm/91kg",
-};
+import { useQuery } from "@tanstack/react-query";
+import { getPlayerDetail } from "../api/playerApi.js";
 
 const PlayerDetail = () => {
   const { id } = useParams();
 
+  const {
+    data: player,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["player", id],
+    queryFn: () => getPlayerDetail(id),
+    enabled: !!id,
+  });
+
+  if (isLoading) {
+    return <p className="text-center mt-10">Loading...</p>;
+  }
+
+  if (isError) {
+    return <p className="text-center mt-10">오류 발생: {error.message}</p>;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex justify-center">
       <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-2xl w-full">
-        {/* 등번호 배지 – 삼성 라이온즈 색 */}
         <div className="flex justify-center mb-4">
           <div className="w-20 h-20 rounded-full bg-[#074CA1] text-white flex items-center justify-center text-3xl font-bold">
             {player.number}
@@ -60,12 +69,11 @@ const PlayerDetail = () => {
               {"\n"}
               생년월일: {player.birth}
               {"\n"}
-              신체: {player.physical}
+              키/몸무게: {player.physical}
             </p>
           </div>
         </div>
 
-        {/* 리스트 버튼 – 회색 */}
         <div className="flex justify-center mt-6">
           <Link
             to="/"
