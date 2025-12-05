@@ -36,6 +36,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<PlayerList players={players} />} />
+      <Route path="/player/:id" element={<PlayerDetail />} />
     </Routes>
   );
 }
